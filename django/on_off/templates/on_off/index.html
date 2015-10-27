@@ -1,0 +1,57 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Management page</title>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'on_off/bootstrap.min.css' %}">
+
+
+  </head>
+  <body>
+	  
+<div class=container>
+<h1>Status:</h1>
+<table class="table table-striped">
+<thead>
+<tr><th>name</th><th>value</th></tr>
+</thead>
+{% for sensor in sensors %}
+<tbody>
+<tr><td>{{sensor.name}}</td><td><b>{{sensor.value}}°C</b></td></tr>
+</tbody>
+{% endfor %}
+</table>
+
+
+<h1>Manage devices:</h1>
+
+
+<table class="table table-striped">
+<thead>
+<tr><th>name</th><th>on/off</th></tr>
+</thead>
+{% for device in devices %}
+<tbody>
+<tr><td>{{device.name}}</td><td>
+{%if device.on == True%}
+<a href="{%url 'signal' device.signal_off %}">OFF</a>
+{%endif%}
+{%if device.on == False%}
+<a href="{%url 'signal' device.signal_on%}">ON</a>
+{%endif%}
+</td></tr>
+</tbody>
+{% endfor %}
+</table>
+
+<p>If you want to reset the system, click <a href="{%url 'reset'%}">reset</a></p>
+<p>If you like this project, donate to BTC address <a href="https://blockchain.info/address/1GXfkYTLjPousWvPG7mAhMbruKDxempB7X">1GXfkYTLjPousWvPG7mAhMbruKDxempB7X</a>
+
+  </body>
+</html>
